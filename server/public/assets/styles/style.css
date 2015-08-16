@@ -6,10 +6,6 @@ h1 {
     padding-left: 60px;
 }
 
-.red {
-    text-decoration: none;
-}
-
-.blue {
+.completed {
     text-decoration: line-through;
 }

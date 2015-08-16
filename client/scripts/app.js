@@ -4,15 +4,6 @@ myApp.controller("TaskController", ['$scope', '$http', function($scope, $http){
     $scope.notes = [];
     $scope.heading = "Tasks: ";
 
-    $scope.strikethrough = function(){        //adds strikethrough css class to p element
-        console.log("strikethrough hit");
-        //$scope.newClass = "red";
-        //if ($scope.newClass === "red")
-        //    $scope.newClass = "blue";
-        //else
-        //    $scope.newClass = "red";
-    };
-
     $scope.getTasks = function(){              //Updates tasks, soft refresh
         $http.get('/todo').then(function(response){
             console.log(response);
@@ -49,8 +40,7 @@ myApp.controller("TaskController", ['$scope', '$http', function($scope, $http){
         });
     };
 
-    $scope.taskComplete = function(note){
-        $scope.strikethrough();                   //PUT
+    $scope.taskComplete = function(note){//PUT
         $http({ url: '/todo/' + note._id,
             method: 'PUT',
             data: note,

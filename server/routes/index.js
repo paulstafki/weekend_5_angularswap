@@ -35,7 +35,6 @@ router.delete("/todo/:id", function(req, res, next){    //used remove and called
 
 router.put("/todo/:id", function(req, res, next){
     Info.findByIdAndUpdate(req.params.id, {task: req.body.task, flag: !req.body.flag}, function() {
-        console.log("Block hit");
     });
     res.send("Task complete!(zorg zorg)");
 });
