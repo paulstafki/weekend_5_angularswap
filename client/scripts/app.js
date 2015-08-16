@@ -4,8 +4,16 @@ myApp.controller("TaskController", ['$scope', '$http', function($scope, $http){
     $scope.notes = [];
     $scope.heading = "Tasks: ";
 
-    $scope.getTasks = function(){
-        //Updates tasks, soft refresh
+    $scope.strikethrough = function(){        //adds strikethrough css class to p element
+        console.log("strikethrough hit");
+        //$scope.newClass = "red";
+        //if ($scope.newClass === "red")
+        //    $scope.newClass = "blue";
+        //else
+        //    $scope.newClass = "red";
+    };
+
+    $scope.getTasks = function(){              //Updates tasks, soft refresh
         $http.get('/todo').then(function(response){
             console.log(response);
             $scope.notes = response.data;
@@ -13,8 +21,7 @@ myApp.controller("TaskController", ['$scope', '$http', function($scope, $http){
         });
     };
 
-    $scope.getData = function(){
-        //GET
+    $scope.getData = function(){                  //GET
         $http.get('/todo').then(function(response){
             console.log(response);
             $scope.note = {};
@@ -23,18 +30,16 @@ myApp.controller("TaskController", ['$scope', '$http', function($scope, $http){
         });
     };
 
-    $scope.updateTasks = function(note){
-        //POST
+    $scope.updateTasks = function(note){        //POST
         console.log(note);
         $http.post('/todo', note).then($scope.getData());
     };
 
-    $scope.deleteData = function(note) {    //changed to allow it to send a body object with the call
-        console.log(note);                  //containing the ID in a body object
-        //DELETE
-        $http({ url: '/todo/' + note,
-            method: 'DELETE',
-            data: {id: note},
+    $scope.deleteData = function(note){            //changed to allow it to send a body object with the call
+        console.log(note);                       //containing the ID in a body object
+        $http({ url: '/todo/' + note._id,
+            method: 'DELETE',                //DELETE
+            data: note,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         }).then(function(res) {
             console.log(res.data);
@@ -44,12 +49,11 @@ myApp.controller("TaskController", ['$scope', '$http', function($scope, $http){
         });
     };
 
-    $scope.taskComplete = function(note) {
-        //PUT
-
-        $http({ url: '/todo/' + note,
+    $scope.taskComplete = function(note){
+        $scope.strikethrough();                   //PUT
+        $http({ url: '/todo/' + note._id,
             method: 'PUT',
-            data: {id: note},
+            data: note,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         }).then(function(res) {
             console.log(res.data);

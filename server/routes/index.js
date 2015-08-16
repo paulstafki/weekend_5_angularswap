@@ -23,7 +23,7 @@ router.post("/todo", function(req, res, next){
 });
 
 router.delete("/todo/:id", function(req, res, next){    //used remove and called the ID off the body object
-    Info.remove({ _id: req.body.id }, function(err) {
+    Info.findByIdAndRemove(req.params.id, {task: req.body.task}, function(err) {
         if (!err) {
         }
         else {
@@ -33,16 +33,12 @@ router.delete("/todo/:id", function(req, res, next){    //used remove and called
     res.send("Im a doctor not a poolman!");
 });
 
-//router.put("/todo/:id", function(req, res, next){    //updated this line, work on the rest
-//    Info.remove({ _id: req.body.id }, function(err) { //-
-//        if (!err) {
-//        }
-//        else {
-//            console.log('Delete Failed');
-//        }
-//    });
-//    res.send("Im a doctor not a poolman!");            //-
-//});
+router.put("/todo/:id", function(req, res, next){
+    Info.findByIdAndUpdate(req.params.id, {task: req.body.task, flag: !req.body.flag}, function() {
+        console.log("Block hit");
+    });
+    res.send("Task complete!(zorg zorg)");
+});
 
 router.get("/*", function(req, res, next){      //wildcard picks up all else
     var file = req.params[0] || "/assets/views/index.html";
