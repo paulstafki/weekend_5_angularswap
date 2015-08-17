@@ -6,6 +6,6 @@ h1 {
     padding-left: 60px;
 }
 
-.completed {
+.strikethrough {
     text-decoration: line-through;
 }

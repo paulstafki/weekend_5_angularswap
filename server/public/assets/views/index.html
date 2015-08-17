@@ -22,8 +22,7 @@
         <button ng-click="getTasks()">Retrieve Tasks</button>
         <div>
             <div ng-repeat="note in notes | filter:test | orderBy:'task'">
-                <p ng-click="taskComplete(note)">{{note.task}}</p>
-                <p>{{note.flag}}</p>
+                <p ng-click="taskComplete(note)" ng-class="{strikethrough: note.flag}">{{note.task}}</p>
                 <button ng-click="deleteData(note)">X</button>
             </div>
         </div>
